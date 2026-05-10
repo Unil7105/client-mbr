@@ -1,0 +1,155 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-red: var(--red);
+  --color-red-soft: var(--red-soft);
+  --font-display: "Playfair Display", serif;
+  --font-heading: "Cinzel", serif;
+  --font-sans: "Poppins", sans-serif;
+}
+
+:root {
+  --radius: 0.75rem;
+  /* Premium Light Editorial Palette */
+  --background: oklch(0.98 0.01 85); /* Ivory / Warm Cream */
+  --foreground: oklch(0.25 0.02 40); /* Soft deep brown/charcoal */
+  --card: oklch(1 0 0); /* White */
+  --card-foreground: oklch(0.25 0.02 40);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.25 0.02 40);
+  
+  --primary: oklch(0.45 0.15 25); /* Muted Maroon */
+  --primary-foreground: oklch(0.98 0.01 85);
+  
+  --secondary: oklch(0.95 0.02 85); /* Light Champagne */
+  --secondary-foreground: oklch(0.35 0.05 40);
+  
+  --muted: oklch(0.95 0.01 85);
+  --muted-foreground: oklch(0.50 0.02 40);
+  
+  --accent: oklch(0.85 0.06 80); /* Champagne Gold */
+  --accent-foreground: oklch(0.25 0.02 40);
+  
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(1 0 0);
+  
+  --border: oklch(0.90 0.02 85);
+  --input: oklch(0.90 0.02 85);
+  --ring: oklch(0.85 0.06 80 / 0.5);
+
+  --red: oklch(0.45 0.15 25);
+  --red-soft: oklch(0.55 0.15 25);
+  --red-deep: oklch(0.35 0.15 25);
+
+  --gradient-red: linear-gradient(135deg, oklch(0.45 0.15 25), oklch(0.35 0.15 25));
+  --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 10px 40px -12px oklch(0.85 0.06 80 / 0.4);
+}
+
+.dark { color-scheme: light; }
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.01em; }
+  .font-heading { font-family: var(--font-heading); letter-spacing: 0.12em; }
+}
+
+@layer components {
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.75rem 1.5rem; border-radius: 9999px;
+    background: var(--primary); color: var(--primary-foreground);
+    font-weight: 600; font-size: 0.875rem; letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-soft);
+  }
+  .btn-primary:hover { background: var(--red-deep); box-shadow: var(--shadow-glow); transform: translateY(-1px); }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    padding: 0.75rem 1.5rem; border-radius: 9999px;
+    background: var(--background); color: var(--primary);
+    font-weight: 600; font-size: 0.875rem; letter-spacing: 0.02em;
+    border: 1.5px solid var(--primary);
+    transition: all 0.2s ease;
+  }
+  .btn-outline:hover { background: var(--primary); color: var(--primary-foreground); }
+
+  .text-red-gradient {
+    background: var(--gradient-red);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+
+  .chip {
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    padding: 0.25rem 0.6rem; border-radius: 9999px;
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em;
+    background: var(--secondary);
+    border: 1px solid var(--border);
+    color: var(--muted-foreground);
+    white-space: nowrap;
+  }
+
+  .smoke {
+    position: absolute; pointer-events: none;
+    background: radial-gradient(ellipse, oklch(1 0 0 / 0.4), transparent 60%);
+    filter: blur(30px);
+    animation: smoke-rise 12s ease-in-out infinite;
+  }
+
+  /* Logo placeholder circle */
+  .logo-circle {
+    width: 96px; height: 96px; border-radius: 9999px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--background);
+    border: 2px dashed var(--primary);
+    color: var(--primary);
+    font-family: var(--font-heading); font-size: 0.65rem; letter-spacing: 0.2em;
+    text-align: center;
+    overflow: hidden;
+  }
+  .logo-circle img { width: 100%; height: 100%; object-fit: cover; border-radius: 9999px; }
+}
+
+@keyframes smoke-rise {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  50% { transform: translate(20px, -40px) scale(1.2); opacity: 0.6; }
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { scrollbar-width: none; }
